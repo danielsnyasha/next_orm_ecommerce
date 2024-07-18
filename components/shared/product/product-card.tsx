@@ -1,7 +1,8 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from "next/image";
+import Link from "next/link";
 
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import ProductPrice from "./product-price";
 
 const ProductCard = ({ product }: { product: any }) => {
   return (
@@ -23,20 +24,23 @@ const ProductCard = ({ product }: { product: any }) => {
         </div>
         <div>
           <Link href={`/product/${product.slug}`}>
-            <h3 className="text-sm font-medium text-gray-800 hover:text-gray-600">{product.name}</h3>
+            <h3 className="text-sm font-medium text-gray-800 hover:text-gray-600">
+              {product.name}
+            </h3>
           </Link>
         </div>
         <div className="flex justify-between items-center gap-4">
           <p className="text-sm text-yellow-500">{product.rating} stars</p>
           {product.stock > 0 ? (
-            <p className="text-sm font-bold text-gray-600">${product.price}</p>
+            /* trunk-ignore(eslint/no-undef) */
+            <ProductPrice value={Number(product.price)} />
           ) : (
             <p className="text-sm text-red-500">Out of Stock</p>
           )}
         </div>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default ProductCard
+export default ProductCard;
