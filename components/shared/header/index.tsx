@@ -1,9 +1,10 @@
-import { ShoppingCart, UserIcon } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
+import { ShoppingCart, UserIcon } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
-import { Button } from '@/components/ui/button'
-import { APP_NAME } from '@/lib/constants'
+import { Button } from "@/components/ui/button";
+import { APP_NAME } from "@/lib/constants";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 const Header = async () => {
   return (
@@ -27,16 +28,21 @@ const Header = async () => {
               Cart
             </Link>
           </Button>
-          <Button asChild>
-            <Link href="/signin">
-              <UserIcon />
-              Sign In
-            </Link>
-          </Button>
+          <SignedOut>
+            <SignInButton mode="modal" redirectUrl="/profile">
+              <Button>
+                <UserIcon />
+                <span>Sign In</span>
+              </Button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
